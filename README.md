@@ -2,7 +2,7 @@
 
 a new way to manage routes lifecycle.
 
-Route路由管理插件
+Route路由生命周期管理插件
 
 
 ## install
