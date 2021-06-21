@@ -26,6 +26,14 @@ import 'package:route_lifecycle/route_lifecycle.dart';
 
 ## Usage
 
+route_lifecycle has the follow lifecycle callbacks:
+
+>* init
+>* resumed
+>* inactive
+>* disposed
+
+
 ```dart
 
 /// config navigatorObservers
@@ -41,7 +49,7 @@ MaterialApp(
 
 ```dart
 
-with RouteMixin<T> 
+/// with RouteMixin<T> 
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -71,6 +79,7 @@ class _HomePageState extends State<HomePage> with RouteMixin<HomePage> {
 
   @override
   String getRouteName() {
+    ///return your route name
     return "/main";
   }
 
@@ -85,13 +94,13 @@ class _HomePageState extends State<HomePage> with RouteMixin<HomePage> {
   }
 
   @override
-  void disposed() {
-    super.disposed();
+  void inactive() {
+    super.inactive();
   }
 
   @override
-  void inactive() {
-    super.inactive();
+  void disposed() {
+    super.disposed();
   }
 }
 
