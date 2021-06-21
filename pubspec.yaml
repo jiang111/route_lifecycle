@@ -1,6 +1,7 @@
 name: route_lifecycle
 description: a new way to manage routes lifecycle.
-version: 0.0.2
+version: 0.0.3
+author: NewTab <425698907@qq.com>
 homepage: https://github.com/jiang111/route_lifecycle
 
 environment:
