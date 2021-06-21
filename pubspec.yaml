@@ -1,8 +1,7 @@
 name: route_lifecycle
-description: A new Flutter package.
+description: a new way to manage routes lifecycle.
 version: 0.0.1
-author:
-homepage:
+homepage: https://github.com/jiang111/route_lifecycle
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
