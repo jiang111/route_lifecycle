@@ -1,8 +1,8 @@
 name: route_lifecycle
 description: a new way to manage routes lifecycle.
 version: 0.0.4
-author: NewTab <425698907@qq.com>
 homepage: https://github.com/jiang111/route_lifecycle
+publish_to: https://pub.dartlang.org
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
