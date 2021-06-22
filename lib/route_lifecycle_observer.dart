@@ -47,16 +47,21 @@ class RouteLifecycleObserver extends NavigatorObserver {
     routeStateChanged(route, CurrentState.resume);
   }
 
-  void addObserver(String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
-    routeLifecycleDidChanges[getKey(name, routeLifecycleStateChanged)] = routeLifecycleStateChanged;
+  void addObserver(
+      String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
+    routeLifecycleDidChanges[getKey(name, routeLifecycleStateChanged)] =
+        routeLifecycleStateChanged;
   }
 
-  String getKey(String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
+  String getKey(
+      String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
     return "$name$SPLIT${routeLifecycleStateChanged.hashCode}";
   }
 
-  void removeObserver(String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
-    if (!routeLifecycleDidChanges.containsKey(getKey(name, routeLifecycleStateChanged))) return;
+  void removeObserver(
+      String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
+    if (!routeLifecycleDidChanges
+        .containsKey(getKey(name, routeLifecycleStateChanged))) return;
     routeLifecycleDidChanges.remove(getKey(name, routeLifecycleStateChanged));
   }
 
@@ -71,10 +76,12 @@ class RouteLifecycleObserver extends NavigatorObserver {
     }
   }
 
-  bool isOnStackTop(String routeName, RouteLifecycleStateChanged routeLifecycleStateChanged) {
+  bool isOnStackTop(
+      String routeName, RouteLifecycleStateChanged routeLifecycleStateChanged) {
     if (_historyRoutes.isEmpty) return false;
     if (routeLifecycleDidChanges.isEmpty) return false;
-    if (routeLifecycleDidChanges.entries.last.key == getKey(routeName, routeLifecycleStateChanged)) {
+    if (routeLifecycleDidChanges.entries.last.key ==
+        getKey(routeName, routeLifecycleStateChanged)) {
       return routeName == _historyRoutes.last.settings.name;
     }
     return false;

@@ -4,7 +4,8 @@ import 'route_lifecycle_observer.dart';
 
 /// @author newtab on 2021/5/7
 
-mixin RouteMixin<T extends StatefulWidget> on State<T> implements RouteLifecycleStateChanged, WidgetsBindingObserver {
+mixin RouteMixin<T extends StatefulWidget> on State<T>
+    implements RouteLifecycleStateChanged, WidgetsBindingObserver {
   String getRouteName();
 
   late CurrentState currentState;
@@ -35,7 +36,8 @@ mixin RouteMixin<T extends StatefulWidget> on State<T> implements RouteLifecycle
 
   @override
   void dispose() {
-    if (currentState == CurrentState.init || currentState == CurrentState.resume) {
+    if (currentState == CurrentState.init ||
+        currentState == CurrentState.resume) {
       inactive();
     }
     WidgetsBinding.instance?.removeObserver(this);
@@ -71,7 +73,8 @@ mixin RouteMixin<T extends StatefulWidget> on State<T> implements RouteLifecycle
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (RouteLifecycleObserver.getInstance().isOnStackTop(getRouteName(), this)) {
+    if (RouteLifecycleObserver.getInstance()
+        .isOnStackTop(getRouteName(), this)) {
       if (state == AppLifecycleState.resumed) {
         resume();
       } else if (state == AppLifecycleState.inactive) {

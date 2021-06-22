@@ -1,6 +1,6 @@
 name: route_lifecycle
-description: a new way to manage routes lifecycle.
-version: 0.0.4
+description: the route_lifecycle is a new way to manage routes lifecycles.
+version: 0.0.5
 homepage: https://github.com/jiang111/route_lifecycle
 publish_to: https://pub.dartlang.org
 

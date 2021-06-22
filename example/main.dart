@@ -152,7 +152,8 @@ class _Home3PageState extends State<Home3Page> with RouteMixin<Home3Page> {
       appBar: AppBar(),
       body: InkWell(
         onTap: () {
-          Navigator.of(context).popUntil((route) => route.settings.name == "/main");
+          Navigator.of(context)
+              .popUntil((route) => route.settings.name == "/main");
         },
         child: Container(
           child: Center(
