@@ -18,7 +18,7 @@ class RouteLifecycleObserver extends NavigatorObserver {
     super.didPop(route, previousRoute);
     _historyRoutes.remove(route);
     if (previousRoute != null) {
-      routeStateChanged(previousRoute, CurrentState.resumed);
+      routeStateChanged(previousRoute, CurrentState.resume);
     }
   }
 
@@ -44,7 +44,7 @@ class RouteLifecycleObserver extends NavigatorObserver {
     if (previousRoute != null) {
       routeStateChanged(previousRoute, CurrentState.inactive);
     }
-    routeStateChanged(route, CurrentState.resumed);
+    routeStateChanged(route, CurrentState.resume);
   }
 
   void addObserver(String name, RouteLifecycleStateChanged routeLifecycleStateChanged) {
@@ -86,6 +86,8 @@ abstract class RouteLifecycleStateChanged {
 }
 
 enum CurrentState {
-  resumed,
+  init,
+  resume,
   inactive,
+  stop,
 }

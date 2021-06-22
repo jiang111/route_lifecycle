@@ -7,6 +7,8 @@ import 'route_lifecycle_observer.dart';
 mixin RouteMixin<T extends StatefulWidget> on State<T> implements RouteLifecycleStateChanged, WidgetsBindingObserver {
   String getRouteName();
 
+  late CurrentState currentState;
+
   static RouteLifecycleObserver getRouteLifecycleObserver() {
     return RouteLifecycleObserver.getInstance();
   }
@@ -19,35 +21,50 @@ mixin RouteMixin<T extends StatefulWidget> on State<T> implements RouteLifecycle
     if (getRouteName().isNotEmpty) {
       RouteLifecycleObserver.getInstance().addObserver(getRouteName(), this);
     }
-    resumed();
+    resume();
   }
 
   @override
   void didChanged(CurrentState state, Route currentRoute) {
     if (state == CurrentState.inactive) {
       inactive();
-    } else if (state == CurrentState.resumed) {
-      resumed();
+    } else if (state == CurrentState.resume) {
+      resume();
     }
   }
 
   @override
   void dispose() {
+    if (currentState == CurrentState.init || currentState == CurrentState.resume) {
+      inactive();
+    }
     WidgetsBinding.instance?.removeObserver(this);
     if (getRouteName().isNotEmpty) {
       RouteLifecycleObserver.getInstance().removeObserver(getRouteName(), this);
     }
-    disposed();
+    stop();
     super.dispose();
   }
 
-  void init() {}
+  @mustCallSuper
+  void init() {
+    currentState = CurrentState.init;
+  }
 
-  void inactive() {}
+  @mustCallSuper
+  void inactive() {
+    currentState = CurrentState.inactive;
+  }
 
-  void resumed() {}
+  @mustCallSuper
+  void resume() {
+    currentState = CurrentState.resume;
+  }
 
-  void disposed() {}
+  @mustCallSuper
+  void stop() {
+    currentState = CurrentState.stop;
+  }
 
   @override
   void didChangeAccessibilityFeatures() {}
@@ -56,11 +73,9 @@ mixin RouteMixin<T extends StatefulWidget> on State<T> implements RouteLifecycle
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (RouteLifecycleObserver.getInstance().isOnStackTop(getRouteName(), this)) {
       if (state == AppLifecycleState.resumed) {
-        resumed();
+        resume();
       } else if (state == AppLifecycleState.inactive) {
         inactive();
-      } else if (state == AppLifecycleState.detached) {
-        disposed();
       }
     }
   }

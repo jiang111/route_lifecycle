@@ -14,7 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      routes: {
+        "/main": (context) => HomePage(),
+        "/a2": (context) => HomePage2(),
+        "/a3": (context) => Home3Page(),
+      },
+      initialRoute: "/main",
       navigatorObservers: [
         RouteMixin.getRouteLifecycleObserver(),
       ],
@@ -41,9 +46,7 @@ class _HomePageState extends State<HomePage> with RouteMixin<HomePage> {
       appBar: AppBar(),
       body: InkWell(
         onTap: () {
-          Navigator.of(context).push(
-            new CupertinoPageRoute(builder: (context) => HomePage2(), settings: RouteSettings(name: '/a2', arguments: Map())),
-          );
+          Navigator.of(context).pushNamed("/a2");
         },
         child: Container(
           child: Center(
@@ -56,31 +59,27 @@ class _HomePageState extends State<HomePage> with RouteMixin<HomePage> {
 
   @override
   String getRouteName() {
-    return "/";
+    return "/main";
   }
 
   @override
   void init() {
     super.init();
-    print(".....${getRouteName()} init");
   }
 
   @override
-  resumed() {
-    print(".....${getRouteName()} resumed");
-    return super.resumed();
+  void resume() {
+    super.resume();
   }
 
   @override
-  void disposed() {
-    print(".....${getRouteName()} disposed");
-    super.disposed();
+  void stop() {
+    super.stop();
   }
 
   @override
-  inactive() {
-    print(".....${getRouteName()} inactive");
-    return super.inactive();
+  void inactive() {
+    super.inactive();
   }
 }
 
@@ -98,9 +97,7 @@ class _HomePage2State extends State<HomePage2> with RouteMixin<HomePage2> {
       appBar: AppBar(),
       body: InkWell(
         onTap: () {
-          Navigator.of(context).push(
-            new CupertinoPageRoute(builder: (context) => Home3Page(), settings: RouteSettings(name: '/a3', arguments: Map())),
-          );
+          Navigator.of(context).pushNamed("/a3");
         },
         child: Container(
           child: Center(
@@ -123,21 +120,21 @@ class _HomePage2State extends State<HomePage2> with RouteMixin<HomePage2> {
   }
 
   @override
-  void disposed() {
-    print(".....${getRouteName()} disposed");
-    super.disposed();
+  void stop() {
+    super.stop();
+    print(".....${getRouteName()} stoped");
   }
 
   @override
-  resumed() {
+  void resume() {
     print(".....${getRouteName()} resumed");
-    return super.resumed();
+    super.resume();
   }
 
   @override
-  inactive() {
+  void inactive() {
     print(".....${getRouteName()} inactive");
-    return super.inactive();
+    super.inactive();
   }
 }
 
@@ -155,7 +152,7 @@ class _Home3PageState extends State<Home3Page> with RouteMixin<Home3Page> {
       appBar: AppBar(),
       body: InkWell(
         onTap: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).popUntil((route) => route.settings.name == "/main");
         },
         child: Container(
           child: Center(
@@ -172,21 +169,21 @@ class _Home3PageState extends State<Home3Page> with RouteMixin<Home3Page> {
   }
 
   @override
-  resumed() {
+  void resume() {
     print(".....${getRouteName()} resumed");
-    return super.resumed();
+    super.resume();
   }
 
   @override
-  void disposed() {
-    print(".....${getRouteName()} disposed");
-    super.disposed();
+  void stop() {
+    print(".....${getRouteName()} stoped");
+    super.stop();
   }
 
   @override
-  inactive() {
+  void inactive() {
     print(".....${getRouteName()} inactive");
-    return super.inactive();
+    super.inactive();
   }
 
   @override
